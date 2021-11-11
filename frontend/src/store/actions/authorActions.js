@@ -12,7 +12,7 @@ export const fetchAuthors = () => {
     return async dispatch => {
       try {
         dispatch(fetchAuthorsRequest());
-        const response = await axiosApi.get('/authors');
+        const response = await axiosApi.get('/artists');
         dispatch(fetchAuthorsSuccess(response.data));
       } catch (e) {
         dispatch(fetchAuthorsFailure());

@@ -1,30 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Typography, List, ListItem, ListItemText } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAlbum } from '../../store/actions/albumActions'
 
-const AlbumInfo = () => {
-    return (
+const AlbumInfo = ({ match }) => {
+    const dispatch = useDispatch();
+    const album = useSelector(state => state.albums.album);
+
+    useEffect(() => {
+        dispatch(fetchAlbum(match.params.id));
+    }, [dispatch, match.params.id]);
+
+    return album && (
         <Grid container direction="column" justifyContent='center'>
             <Typography variant="h6" sx={{ margin: '1rem' }}>
-                Author
+                {album.author}
             </Typography>
             <Typography variant="h7" sx={{ margin: '1rem' }}>
-                Album
+                {album.title}
             </Typography>
-            <Grid sx={{display: 'flex' ,justifyContent: 'center'}}>
+            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
                 <List
                     aria-label="contacts"
-                    sx={{minWidth: 480}}
+                    sx={{ minWidth: 480 }}
                 >
-                    <Grid  sx={{ bgcolor: '#e8e8e8' ,justifyContent: 'center', margin: '1rem' }}>
+                    <Grid sx={{ bgcolor: '#e8e8e8', justifyContent: 'center', margin: '1rem' }}>
                         <ListItem disablePadding>
-                            <ListItemText inset primary="№1" />
-                            <ListItemText inset primary="Summer" />
-                            <ListItemText inset primary="3:44" />
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemText inset primary="№2" />
-                            <ListItemText inset primary="Autumn" />
-                            <ListItemText inset primary="3:44" />
+                            <ListItemText inset primary={album.num} />
+                            <ListItemText inset primary={album.track}/>
+                            <ListItemText inset primary={album.time} />
                         </ListItem>
                     </Grid>
                 </List>

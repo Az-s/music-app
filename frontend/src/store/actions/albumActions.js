@@ -32,7 +32,7 @@ export const fetchAlbum = id => {
     return async dispatch => {
         try {
             dispatch(fetchAlbumRequest());
-            const response = await axiosApi.get('/album/' + id);
+            const response = await axiosApi.get('/albums/' + id);
             dispatch(fetchAlbumSuccess(response.data));
         } catch (e) {
             dispatch(fetchAlbumFailure());

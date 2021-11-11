@@ -1,25 +1,38 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Button, Typography , CardActions} from '@mui/material';
-import {Link} from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Card, CardMedia, CardContent, Button, Typography, CardActions } from '@mui/material';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuthors } from '../../store/actions/authorActions';
 
 const Authors = () => {
+    const dispatch = useDispatch();
+    const authors = useSelector(state => state.authors.authors);
+
+    useEffect(() => {
+        dispatch(fetchAuthors());
+    }, [dispatch]);
+
     return (
-        <Card sx={{ maxWidth: 300 , margin: '1rem'}}>
-            <CardMedia
-                component="img"
-                height="200"
-                image="https://images.pexels.com/photos/5648438/pexels-photo-5648438.jpeg?cs=srgb&dl=pexels-cottonbro-5648438.jpg&fm=jpg"
-                alt="executor"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Author
-                </Typography>
-            </CardContent>
-            <CardActions sx={{justifyContent: 'center'}}>
-                <Button size="small" component={Link} to='/albums'>More info</Button>
-            </CardActions>
-        </Card>
+        <>
+            {authors.map(author => (
+                <Card sx={{ maxWidth: 300, margin: '1rem' }} key={author.id}>
+                    <CardMedia
+                        component="img"
+                        height="200"
+                        image={author.img}
+                        alt="executor"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                        {author.author}
+                        </Typography>
+                    </CardContent>
+                    <CardActions sx={{ justifyContent: 'center' }}>
+                        <Button size="small" component={Link} to='/albums'>More info</Button>
+                    </CardActions>
+                </Card>
+            ))};
+        </>
     )
 }
 
