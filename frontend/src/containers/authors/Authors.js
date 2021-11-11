@@ -19,12 +19,12 @@ const Authors = () => {
                     <CardMedia
                         component="img"
                         height="200"
-                        image={author.img}
+                        image={author.image}
                         alt="executor"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                        {author.author}
+                        {author.name}
                         </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>

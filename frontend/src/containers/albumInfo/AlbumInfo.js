@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Typography, List, ListItem, ListItemText } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAlbum } from '../../store/actions/albumActions'
@@ -26,9 +26,9 @@ const AlbumInfo = ({ match }) => {
                 >
                     <Grid sx={{ bgcolor: '#e8e8e8', justifyContent: 'center', margin: '1rem' }}>
                         <ListItem disablePadding>
-                            <ListItemText inset primary={album.num} />
-                            <ListItemText inset primary={album.track}/>
-                            <ListItemText inset primary={album.time} />
+                            <ListItemText inset primary={album.album} />
+                            <ListItemText inset primary={album.title}/>
+                            <ListItemText inset primary={album.duration} />
                         </ListItem>
                     </Grid>
                 </List>

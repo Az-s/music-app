@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useEffect} from 'react';
 import { Grid, Card, CardMedia, CardHeader, CardContent, Button, Typography, CardActions } from '@mui/material';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,22 +18,22 @@ const AlbumList = () => {
                 albums.map(album => (
                     <Grid key={album.id}>
                         <Typography variant="h6" sx={{ margin: '1rem' }}>
-                            {album.author}
+                            {album.artist}
                         </Typography>
                         <Card sx={{ maxWidth: 300, margin: '1rem' }}>
                             <CardHeader
                                 title={album.title}
-                                subheader={album.date}
+                                subheader={album.year}
                             />
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={album.img}
+                                image={album.image}
                                 alt="album"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div" >
-                                    {album.amount}
+                                    {/* {album.amount} */}
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ justifyContent: 'center' }}>
