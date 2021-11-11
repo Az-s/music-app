@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import NavBar from './components/UI/NavBar/NavBar';
+import Authors from './containers/authors/Authors';
+import AlbumList from './containers/albumList/AlbumList';
+import AlbumInfo from './containers/albumInfo/AlbumInfo';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <NavBar />
+        <Route exact path="/" component={Authors} />
+        <Route path="/albums" component={AlbumList} />
+        <Route path="/album/:id" component={AlbumInfo} />
+      </Router>
     </div>
   );
 }
