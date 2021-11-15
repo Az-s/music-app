@@ -1,7 +1,6 @@
 import axiosApi from "../../axiosApi";
 import { historyPush } from './historyActions';
 import { toast } from "react-toastify";
-import {push} from 'connected-react-router';
 
 export const SIGNUP_USER_SUCCESS = 'SIGNUP_USER_SUCCESS';
 export const SIGNUP_USER_FAILURE = 'SIGNUP_USER_FAILURE';
@@ -61,7 +60,6 @@ export const logoutUser = () => {
         const headers = {
             'Authorization': getState().users.user.token,
         };
-
         await axiosApi.delete('/users/sessions', { headers });
         dispatch({ type: LOGOUT_USER });
         dispatch(historyPush('/'));
@@ -91,7 +89,7 @@ export const getHistory = () => {
             dispatch(getHistorySuccess(response.data));
         } catch (error) {
             if (error.response) {
-                dispatch(push('/'));
+                dispatch(historyPush('/'));
             } else {
                 dispatch(loginUserFailure({ global: "No network connection " }))
             }
