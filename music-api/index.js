@@ -5,6 +5,8 @@ const albums = require('./app/albums');
 const tracks = require('./app/tracks');
 const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
+const config = require('./config');
+const history = require('./app/trackHistory');
 
 const app = express();
 app.use(cors());
@@ -16,9 +18,11 @@ const port = 8000;
 app.use('/artists', artists);
 app.use('/albums', albums);
 app.use('/tracks', tracks);
+app.use('/users', users);
+app.use('/tracks_history', history);
 
 const run = async () => {
-  await mongoose.connect('mongodb://localhost/music');
+  await mongoose.connect(config.db.url);
 
   app.listen(port, () => {
     console.log(`Server started on ${port} port!`);
