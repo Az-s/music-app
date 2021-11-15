@@ -31,7 +31,7 @@ const Authors = () => {
                         <Button size="small" component={Link} to='/albums'>More info</Button>
                     </CardActions>
                 </Card>
-            ))};
+            ))}
         </>
     )
 }
