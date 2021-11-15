@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
 const config = require('./config');
 const history = require('./app/trackHistory');
+const users = require('./app/users');
 
 const app = express();
 app.use(cors());
