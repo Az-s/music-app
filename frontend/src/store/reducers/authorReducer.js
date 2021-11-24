@@ -24,7 +24,7 @@ const authorReducer = (state = initialState, action) => {
         case FETCH_AUTHOR_REQUEST:
             return { ...state, fetchLoading: true };
         case FETCH_AUTHOR_SUCCESS:
-            return { ...state, fetchLoading: false, authors: action.payload };
+            return { ...state, fetchLoading: false, author: action.payload };
         case FETCH_AUTHOR_FAILURE:
             return { ...state, fetchLoading: false };
         default:

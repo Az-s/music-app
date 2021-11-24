@@ -5,6 +5,8 @@ const nanoid = require('nanoid');
 const config = require('../config');
 const Album = require('../models/Album');
 const router = express.Router();
+const auth = require('../middleware/auth');
+const permit = require('../middleware/permit');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -20,6 +22,7 @@ const upload = multer({ storage });
 router.get('/', async (req, res) => {
 
     try {
+        
         if (req.query.artist) {
 
             const albums = await Album.find().populate('artist');
@@ -80,5 +83,19 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
 });
+
+router.delete('/:id', async (req, res) => {
+    try {
+      const album  = await Album.findByIdAndDelete(req.params.id);
+  
+      if (album ) {
+        res.send(`Album '${album .title} removed'`);
+      } else {
+        res.status(404).send({error: 'Album not found'});
+      }
+    } catch (e) {
+      res.sendStatus(500);
+    }
+  });
 
 module.exports = router;

@@ -13,7 +13,7 @@ export const fetchAuthorsSuccess = authors => ({ type: FETCH_AUTHORS_SUCCESS, pa
 export const fetchAuthorsFailure = () => ({ type: FETCH_AUTHORS_FAILURE });
 
 export const fetchAuthorRequest = () => ({ type: FETCH_AUTHOR_REQUEST });
-export const fetchAuthorSuccess = author => ({ type: FETCH_AUTHOR_SUCCESS, payload: authors });
+export const fetchAuthorSuccess = author => ({ type: FETCH_AUTHOR_SUCCESS, payload: author });
 export const fetchAuthorFailure = () => ({ type: FETCH_AUTHOR_FAILURE });
 
 export const fetchAuthors = () => {

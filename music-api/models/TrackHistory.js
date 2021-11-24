@@ -15,7 +15,8 @@ const HistorySchema = new Schema({
         required: true
     },
     datetime: {
-        type: String
+        type: Date,
+        default: Date.now,
     }
 });
 
