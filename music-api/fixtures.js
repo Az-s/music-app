@@ -3,21 +3,22 @@ const config = require('./config');
 const Album = require('./models/Album');
 const Artist = require('./models/Artist');
 const Track = require('./models/Track');
+const User = require('./models/User');
 
 const run = async () => {
     await mongoose.connect(config.db.url);
 
     const connection = mongoose.connection;
 
-    const collections = await connection.db.collections();
+    const collections = await mongoose.connection.db.listCollections().toArray();
 
-    for (let collection of collections) {
-        await collection.drop();
+    for (const coll of collections) {
+        await mongoose.connection.db.dropCollection(coll.name);
     }
 
     const [ImDr, AWal] = await Artist.create(
-        {name: 'Imagine Dragons', description: 'Imagine Dragons is an American pop rock band from Las Vegas, Nevada, consisting of lead singer Dan Reynolds, guitarist Wayne Sermon, bassist Ben McKee, and drummer Daniel Platzman.', image: 'imagine-dragons-trianon_1.jpg'},
-        {name: 'Alan Walker', description: 'Alan Olav Walker (born 24 August 1997) is a British-Norwegian DJ, YouTuber and record producer, primarily known for the critically acclaimed single "Faded" (2015), which was certified platinum in 14 countries.', image: 'aw.jpg'},
+        { name: 'Imagine Dragons', description: 'Imagine Dragons is an American pop rock band from Las Vegas, Nevada, consisting of lead singer Dan Reynolds, guitarist Wayne Sermon, bassist Ben McKee, and drummer Daniel Platzman.', image: 'imagine-dragons-trianon_1.jpg' },
+        { name: 'Alan Walker', description: 'Alan Olav Walker (born 24 August 1997) is a British-Norwegian DJ, YouTuber and record producer, primarily known for the critically acclaimed single "Faded" (2015), which was certified platinum in 14 countries.', image: 'aw.jpg' },
     );
 
     const [night_vision, evolve, origins, faded, different_world, live_fast] = await Album.create(
@@ -188,7 +189,19 @@ const run = async () => {
         },
     );
 
-    return connection.close();
+    await User.create({
+        username: 'admin',
+        password: '123',
+        token: nanoid(),
+        role: 'admin'
+    }, {
+        username: 'user',
+        password: '321',
+        token: nanoid(),
+        role: 'user'
+    });
+
+    await mongoose.connection.close();
 };
 
 run().catch(error => {
