@@ -13,8 +13,8 @@ const AlbumForm = ({ onSubmit }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        Object.keys(state).forEach(key => {
-            formData.append(key, state[key]);
+        Object.keys(album).forEach(key => {
+            formData.append(key, album[key]);
         });
 
         onSubmit(formData);
@@ -23,16 +23,16 @@ const AlbumForm = ({ onSubmit }) => {
     const inputChangeHandler = e => {
         const name = e.target.name;
         const value = e.target.value;
-        setAlbum(prevState => {
-            return { ...prevState, [name]: value };
+        setAlbum(prev => {
+            return { ...prev, [name]: value };
         });
     };
 
     const fileChangeHandler = e => {
         const name = e.target.name;
         const file = e.target.files[0];
-        setAlbum(prevState => {
-            return { ...prevState, [name]: file };
+        setAlbum(prev => {
+            return { ...prev, [name]: file };
         });
     }
 

@@ -13,8 +13,8 @@ const ArtistForm = ({ onSubmit }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        Object.keys(state).forEach(key => {
-            formData.append(key, state[key]);
+        Object.keys(artist).forEach(key => {
+            formData.append(key, artist[key]);
         });
 
         onSubmit(formData);

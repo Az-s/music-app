@@ -11,7 +11,7 @@ const TrackForm = ({ onSubmit }) => {
 
     const submitFormHandler = e => {
         e.preventDefault();
-        onSubmit(formData);
+        onSubmit();
     };
 
     const inputChangeHandler = e => {
