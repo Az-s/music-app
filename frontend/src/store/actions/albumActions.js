@@ -1,5 +1,5 @@
 import axiosApi from "../../axiosApi";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 export const FETCH_ALBUMS_REQUEST = 'FETCH_ALBUMS_REQUEST';
 export const FETCH_ALBUMS_SUCCESS = 'FETCH_ALBUMS_SUCCESS';
@@ -47,17 +47,17 @@ export const fetchTracksByArtistFailure = () => ({ type: FETCH_TRACKSBYARTIST_FA
 export const fetchTracksByAlbumSuccess = tracks => ({ type: FETCH_TRACKSBYALBUM_SUCCESS, tracks });
 export const fetchTracksByAlbumFailure = () => ({ type: FETCH_TRACKSBYALBUM_FAILURE });
 
-export const createAlbumRequest = () => ({type: CREATE_ALBUM_REQUEST});
-export const createAlbumSuccess = () => ({type: CREATE_ALBUM_SUCCESS});
-export const createAlbumFailure = () => ({type: CREATE_ALBUM_FAILURE});
+export const createAlbumRequest = () => ({ type: CREATE_ALBUM_REQUEST });
+export const createAlbumSuccess = () => ({ type: CREATE_ALBUM_SUCCESS });
+export const createAlbumFailure = () => ({ type: CREATE_ALBUM_FAILURE });
 
-export const createArtistRequest = () => ({type: CREATE_ARTIST_REQUEST});
-export const createArtistSuccess = () => ({type: CREATE_ARTIST_SUCCESS});
-export const createArtistFailure = () => ({type: CREATE_ARTIST_FAILURE});
+export const createArtistRequest = () => ({ type: CREATE_ARTIST_REQUEST });
+export const createArtistSuccess = () => ({ type: CREATE_ARTIST_SUCCESS });
+export const createArtistFailure = () => ({ type: CREATE_ARTIST_FAILURE });
 
-export const createTrackRequest = () => ({type: CREATE_TRACK_REQUEST});
-export const createTrackSuccess = () => ({type: CREATE_TRACK_SUCCESS});
-export const createTrackFailure = () => ({type: CREATE_TRACK_FAILURE});
+export const createTrackRequest = () => ({ type: CREATE_TRACK_REQUEST });
+export const createTrackSuccess = () => ({ type: CREATE_TRACK_SUCCESS });
+export const createTrackFailure = () => ({ type: CREATE_TRACK_FAILURE });
 
 export const fetchAlbums = (artistId) => {
     return async (dispatch, getState) => {
@@ -195,6 +195,45 @@ export const deleteTrack = (id) => {
             toast.success('Track deleted');
         } catch (e) {
             dispatch(createTrackFailure());
+            throw e;
+        }
+    };
+};
+
+export const toggleTrackPublish = id => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().users.user.token;
+            const config = { headers: { 'Authorization': token } };
+            await axiosApi.post('/tracks/' + id + '/toggle_published', config)
+            dispatch(createTrackSuccess());
+        } catch (e) {
+            throw e;
+        }
+    };
+};
+
+export const toggleAlbumPublish = id => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().users.user.token;
+            const config = { headers: { 'Authorization': token } };
+            await axiosApi.post('/albums/' + id + '/toggle_published', config);
+            dispatch(fetchALbumsSuccess());
+        } catch (e) {
+            throw e;
+        }
+    };
+};
+
+export const toggleArtistPublish = id => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().users.user.token;
+            const config = { headers: { 'Authorization': token } };
+            await axiosApi.post('/artists/' + id + '/toggle_published', config);
+            dispatch(createArtistSuccess());
+        } catch (e) {
             throw e;
         }
     };

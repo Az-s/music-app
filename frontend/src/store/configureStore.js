@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
-import authorReducer from './store/reducers/authorReducer';
-import albumReducer from './store/reducers/albumReducer';
-import usersReducer from './store/reducers/usersREducer';
+import authorReducer from './reducers/authorReducer';
+import albumReducer from './reducers/albumReducer';
+import usersReducer from './reducers/usersREducer';
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import axiosApi from "../axiosApi";
 
