@@ -96,3 +96,17 @@ export const getHistory = () => {
         }
     };
 };
+
+export const facebookLogin = data => {
+    return async dispatch => {
+      try {
+        const response = await axiosApi.post('/users/facebookLogin', data);
+        dispatch(loginUserSuccess(response.data.user));
+        dispatch(historyPush('/'));
+        toast.success('Login successful');
+      } catch (error) {
+        toast.error(error.response.data.global);
+        dispatch(loginUserFailure(error.response.data));
+      }
+    };
+  };

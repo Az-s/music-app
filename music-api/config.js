@@ -8,4 +8,8 @@ module.exports = {
   db: {
     url: 'mongodb://localhost/music',
   },
+  facebook: {
+    appId: process.env.FACEBOOK_APP_ID,
+    appSecret: process.env.FACEBOOK_APP_SECRET,
+  },
 };

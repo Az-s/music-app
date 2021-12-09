@@ -4,6 +4,16 @@ const {nanoid} = require("nanoid");
 
 const SALT_WORK_FACTOR = 10;
 
+const validateUnique = async value => {
+  const user = await User.findOne({email: value});
+  if (user) return false;
+};
+
+const validateEmail = value => {
+  const re = /^(\w+[-.]?\w+)@(\w+)([.-]?\w+)?(\.[a-zA-Z]{2,})$/;
+  if (!re.test(value)) return false;
+};
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -30,7 +40,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 'user',
     enum: ['admin', 'user'],
-  }
+  },
+  facebookId: String,
 });
 
 UserSchema.pre('save', async function (next) {

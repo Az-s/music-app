@@ -11,7 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from "react-redux";
-import {SignInUser} from '../../store/actions/usersActions';
+import { SignInUser } from '../../store/actions/usersActions';
+import FacebookLogin from '../../components/UI/FacebookLogin/FacebookLogin';
 
 function Copyright(props) {
     return (
@@ -31,6 +32,7 @@ const theme = createTheme();
 const SignIn = () => {
     const dispatch = useDispatch();
     const error = useSelector(state => state.users.loginError);
+    const loading = useSelector(state => state.users.loginLoading);
 
     const [user, setUser] = useState({
         username: '',
@@ -46,7 +48,7 @@ const SignIn = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(SignInUser({...user}));
+        dispatch(SignInUser({ ...user }));
     };
 
     return (
@@ -113,6 +115,9 @@ const SignIn = () => {
                             >
                                 Sign In
                             </Button>
+                            <Grid item xs={12}>
+                                <FacebookLogin />
+                            </Grid>
                             <Grid container>
                                 <Grid item>
                                     <Link href="#" variant="body2" to="/signup">
